@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connectToDB } from "./server";
+import productRouter from "./modules/product/product.route";
 
 //Initialize dotenv variables access
 dotenv.config();
@@ -19,6 +20,9 @@ app.use(express.json());
 app.use(cors());
 
 // Application routes
+
+app.use("/api/products", productRouter);
+
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello from stationary shop");
 });
