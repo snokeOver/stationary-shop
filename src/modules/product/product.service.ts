@@ -18,6 +18,7 @@ export const getAllProductsDB = async () => {
     .select("-isDeleted -__v");
   // const query = ProductModel.find().notDeleted();
   // console.log(query.getQuery());
+  if (result.length < 1) throw new NotFoundError("Resource not found");
   return result;
 };
 
@@ -28,6 +29,22 @@ export const getAProductDB = async (productId: string) => {
     .select("-isDeleted -__v");
 
   if (result.length < 1) throw new NotFoundError("Resource not found");
+
+  return result;
+};
+
+//Update a single product from the database
+export const updateAProductDB = async (
+  productId: string,
+  updatedContent: Partial<IProduct>
+) => {
+  const result = await ProductModel.findOneAndUpdate(
+    { _id: productId },
+    { $set: updatedContent },
+    { runValidators: true, new: true }
+  );
+  console.log(result);
+  // if (result.length < 1) throw new NotFoundError("Resource not found");
 
   return result;
 };

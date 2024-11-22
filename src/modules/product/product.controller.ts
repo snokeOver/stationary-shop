@@ -3,6 +3,7 @@ import {
   createProductDB,
   getAllProductsDB,
   getAProductDB,
+  updateAProductDB,
 } from "./product.service";
 
 // Control request and response to Create A Product
@@ -54,6 +55,28 @@ export const getAProduct = async (
     const result = await getAProductDB(productId);
     res.status(200).send({
       message: "Product retrieved successfully",
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Control request and response to update a single Product
+export const updateAProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId } = req.params;
+    const updatedContent = req.body;
+
+    const result = await updateAProductDB(productId, updatedContent);
+
+    res.status(200).send({
+      message: "Product Updated successfully",
       success: true,
       data: result,
     });

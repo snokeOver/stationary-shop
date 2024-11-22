@@ -5,11 +5,14 @@ import {
   Schema,
   model,
 } from "mongoose";
+
 import {
   IProduct,
   IProductNotDeletedQH,
   TProductModel,
 } from "./product.interface";
+
+import { UpdateQuery } from "mongoose";
 
 const productSchema = new Schema<
   IProduct,
@@ -101,6 +104,29 @@ productSchema.query.notDeleted = function byName(
 ) {
   return this.find({ isDeleted: false });
 };
+
+//Pre middleware to find invalid fields/keys before update
+productSchema.pre("findOneAndUpdate", function (next) {
+  const givenUpdateFields = (this.getUpdate() as UpdateQuery<IProduct>).$set;
+
+  if (typeof givenUpdateFields !== "object" || givenUpdateFields === null) {
+    return next(new Error("Invalid update structure"));
+  }
+
+  if (Object.keys(givenUpdateFields).length === 1)
+    return next(new Error("Nothing to update"));
+
+  const schemaKeys = Object.keys(productSchema.paths);
+
+  const invalidFields = Object.keys(givenUpdateFields).filter(
+    (key: string) => !schemaKeys.includes(key)
+  );
+
+  if (invalidFields.length > 0)
+    return next(new Error(`Invalid Fields: ${invalidFields.join(", ")}`));
+
+  next();
+});
 
 export const ProductModel = model<IProduct, TProductModel>(
   "products",
