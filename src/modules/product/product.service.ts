@@ -1,3 +1,4 @@
+import { NotFoundError } from "../../errorhandler";
 import { IProduct } from "./product.interface";
 import { ProductModel } from "./product.model";
 
@@ -17,5 +18,16 @@ export const getAllProductsDB = async () => {
     .select("-isDeleted -__v");
   // const query = ProductModel.find().notDeleted();
   // console.log(query.getQuery());
+  return result;
+};
+
+//Get a single product from the database
+export const getAProductDB = async (productId: string) => {
+  const result = await ProductModel.findById(productId)
+    .notDeleted()
+    .select("-isDeleted -__v");
+
+  if (result.length < 1) throw new NotFoundError("Resource not found");
+
   return result;
 };

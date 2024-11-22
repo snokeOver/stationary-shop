@@ -1,5 +1,5 @@
 import { ErrorRequestHandler } from "express";
-import { Error } from "mongoose";
+import { Error as Merr } from "mongoose";
 
 export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let errMsg = "Server error";
@@ -7,7 +7,10 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let errorDetails = error.errors;
 
   //Check for specific error
-  if (error instanceof Error.ValidationError) {
+  if (error.name === "NotFoundError") {
+    errMsg = error.message;
+    statusCode = 404;
+  } else if (error instanceof Merr.ValidationError) {
     errMsg = "Validation failed";
     statusCode = 400;
   } else if (error.code === 11000) {
@@ -31,3 +34,10 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
 
   res.status(statusCode).send(response);
 };
+
+export class NotFoundError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "NotFoundError";
+  }
+}
