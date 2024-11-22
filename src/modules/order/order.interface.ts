@@ -5,4 +5,5 @@ export interface IOrder {
   product: Types.ObjectId;
   quantity: number;
   totalPrice: number;
+  __v?: number;
 }

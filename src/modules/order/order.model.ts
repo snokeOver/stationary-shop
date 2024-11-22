@@ -1,5 +1,6 @@
 import mongoose, { model, Schema } from "mongoose";
 import { IOrder } from "./order.interface";
+import { ProductModel } from "../product/product.model";
 
 const orderSchema = new Schema<IOrder>(
   {
@@ -45,7 +46,53 @@ const orderSchema = new Schema<IOrder>(
 
   {
     timestamps: true,
+    strict: "throw", // prevents extra fields and throw error
   }
 );
+
+//Pre-hook to validate some aspects before creating a order
+orderSchema.pre("save", async function () {
+  const existingProduct = await ProductModel.findById(this.product);
+
+  // Validate product existence
+  if (!existingProduct) throw new Error("Product not found in the database");
+
+  const { name, quantity: stockQuantity, inStock } = existingProduct;
+
+  //Validate product availability: When quantity is 0 or inStock is false
+  if (stockQuantity === 0 || !inStock)
+    throw new Error(`${name} is out of Stock`);
+
+  //Validate order quantity: When the order quantity is greater than the existing quantity
+  if (this.quantity > stockQuantity)
+    throw new Error(`Insufficient stock for ${name}`);
+
+  //   console.log(existingProduct);
+});
+
+//post-hook to update the quantity of the product
+orderSchema.post("save", async function () {
+  const existingProduct = await ProductModel.findById(this.product);
+
+  //When no product found
+  if (!existingProduct) throw new Error("Product not found in the DB");
+
+  const updatedFild = {
+    quantity: existingProduct.quantity - this.quantity,
+    inStock: existingProduct.quantity > this.quantity,
+  };
+
+  const result = await ProductModel.findByIdAndUpdate(
+    this.product,
+    {
+      $set: updatedFild,
+    },
+    {
+      new: true,
+    }
+  );
+
+  console.log(result);
+});
 
 export const OrderModel = model<IOrder>("orders", orderSchema);

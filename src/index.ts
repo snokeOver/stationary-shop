@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectToDB } from "./server";
 import productRouter from "./modules/product/product.route";
 import { errorHandler } from "./errorhandler";
+import orderRoute from "./modules/order/order.route";
 
 //Initialize dotenv variables access
 dotenv.config();
@@ -22,8 +23,8 @@ app.use(express.json());
 app.use(cors());
 
 // Application routes
-
 app.use("/api/products", productRouter);
+app.use("/api/orders", orderRoute);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello from stationary shop");

@@ -91,6 +91,7 @@ const productSchema = new Schema<
   // Adds `createdAt` and `updatedAt` fields automatically
   {
     timestamps: true,
+    strict: "throw", // prevents extra fields and throw error
   }
 );
 

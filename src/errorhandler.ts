@@ -9,7 +9,14 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   //Check for specific error
   if (error.name === "NotFoundError") {
     errMsg = error.message;
-    statusCode = 404;
+    statusCode = 400;
+  } else if (error.name === "StrictModeError") {
+    const msg = error.message;
+    errMsg = "Additional field not allowed";
+    statusCode = 400;
+    errorDetails = {
+      error: msg.split(" ").slice(1).join(" "),
+    };
   } else if (error instanceof Merr.ValidationError) {
     errMsg = "Validation failed";
     statusCode = 400;
