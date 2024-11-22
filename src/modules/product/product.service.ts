@@ -39,12 +39,12 @@ export const updateAProductDB = async (
   updatedContent: Partial<IProduct>
 ) => {
   const result = await ProductModel.findOneAndUpdate(
-    { _id: productId },
+    { _id: productId, isDeleted: false },
     { $set: updatedContent },
     { runValidators: true, new: true }
   );
-  console.log(result);
-  // if (result.length < 1) throw new NotFoundError("Resource not found");
+
+  if (!result) throw new NotFoundError("Resource not found");
 
   return result;
 };
