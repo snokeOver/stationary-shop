@@ -14,7 +14,6 @@ const orderSchema = new Schema<IOrder>(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value),
         message: "Invalid email format",
       },
-      unique: true,
     },
 
     product: {
@@ -52,7 +51,10 @@ const orderSchema = new Schema<IOrder>(
 
 //Pre-hook to validate some aspects before creating a order
 orderSchema.pre("save", async function () {
-  const existingProduct = await ProductModel.findById(this.product);
+  const existingProduct = await ProductModel.findOne({
+    _id: this.product,
+    isDeleted: false,
+  });
 
   // Validate product existence
   if (!existingProduct) throw new Error("Product not found in the database");
@@ -72,7 +74,10 @@ orderSchema.pre("save", async function () {
 
 //post-hook to update the quantity of the product
 orderSchema.post("save", async function () {
-  const existingProduct = await ProductModel.findById(this.product);
+  const existingProduct = await ProductModel.findOne({
+    _id: this.product,
+    isDeleted: false,
+  });
 
   //When no product found
   if (!existingProduct) throw new Error("Product not found in the DB");
