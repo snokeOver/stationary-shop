@@ -63,7 +63,13 @@ const productSchema = new Schema<IProduct>(
       type: Boolean,
       required: [true, "In-stock status is required"],
     },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
+
   // Adds `createdAt` and `updatedAt` fields automatically
   {
     timestamps: true,
