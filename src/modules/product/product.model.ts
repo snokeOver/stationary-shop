@@ -8,9 +8,11 @@ const productSchema = new Schema<IProduct>(
       required: [true, "Product name is required"],
       trim: true,
       validate: {
-        validator: (value) => value.charAt(0) === value.charAt(0).toUpperCase(),
-        message: "The product name must start with an uppercase letter",
+        validator: (value) => /^[A-Z][a-zA-Z\s]*$/.test(value),
+        message:
+          "Product name must start with an uppercase letter and contain only alphabetic characters",
       },
+      unique: true,
     },
 
     brand: {
@@ -26,7 +28,7 @@ const productSchema = new Schema<IProduct>(
     price: {
       type: Number,
       required: [true, "Price is required"],
-      min: [0, "Price must be greater than or equal to 0"],
+      min: [0, "Price must be a positive number"],
     },
 
     category: {
@@ -54,7 +56,7 @@ const productSchema = new Schema<IProduct>(
     quantity: {
       type: Number,
       required: [true, "Quantity is required"],
-      min: [0, "Quantity must be greater than or equal to 0"],
+      min: [0, "Quantity must be a positive number"],
     },
 
     inStock: {

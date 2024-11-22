@@ -3,11 +3,13 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectToDB } from "./server";
 import productRouter from "./modules/product/product.route";
+import { errorHandler } from "./errorhandler";
 
 //Initialize dotenv variables access
 dotenv.config();
 const server_port = process.env.SERVER_PORT;
 export const mongoDB_Url = process.env.MONGODB_URL;
+export const node_env = process.env.NODE_ENV;
 
 //Connect MongoDB via Mongoose
 connectToDB();
@@ -30,3 +32,6 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(server_port, () => [
   console.log(`Stationary shop is listening on port ${server_port}`),
 ]);
+
+//Global error handler
+app.use(errorHandler);
