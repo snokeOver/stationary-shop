@@ -1,7 +1,22 @@
-import { Schema, model } from "mongoose";
-import { IProduct } from "./product.interface";
+import {
+  HydratedDocument,
+  Model,
+  QueryWithHelpers,
+  Schema,
+  model,
+} from "mongoose";
+import {
+  IProduct,
+  IProductNotDeletedQH,
+  TProductModel,
+} from "./product.interface";
 
-const productSchema = new Schema<IProduct>(
+const productSchema = new Schema<
+  IProduct,
+  Model<IProduct, IProductNotDeletedQH>,
+  Record<string, never>,
+  IProductNotDeletedQH
+>(
   {
     name: {
       type: String,
@@ -76,4 +91,18 @@ const productSchema = new Schema<IProduct>(
   }
 );
 
-export const ProductModel = model<IProduct>("products", productSchema);
+//Custom querry to get only the non-deleted product
+productSchema.query.notDeleted = function byName(
+  this: QueryWithHelpers<
+    HydratedDocument<IProduct>,
+    HydratedDocument<IProduct>,
+    IProductNotDeletedQH
+  >
+) {
+  return this.find({ isDeleted: false });
+};
+
+export const ProductModel = model<IProduct, TProductModel>(
+  "products",
+  productSchema
+);

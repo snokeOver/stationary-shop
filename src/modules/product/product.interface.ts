@@ -1,3 +1,5 @@
+import { HydratedDocument, Model, QueryWithHelpers } from "mongoose";
+
 export type TCategory =
   | "Writing"
   | "Office Supplies"
@@ -14,4 +16,15 @@ export interface IProduct {
   quantity: number;
   inStock: boolean;
   isDeleted: boolean;
+  __v?: number;
 }
+
+export interface IProductNotDeletedQH {
+  notDeleted(): QueryWithHelpers<
+    HydratedDocument<IProduct>[],
+    HydratedDocument<IProduct>,
+    IProductNotDeletedQH
+  >;
+}
+
+export type TProductModel = Model<IProduct, IProductNotDeletedQH>;
