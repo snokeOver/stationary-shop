@@ -12,7 +12,9 @@ export const createProductDB = async (product: IProduct) => {
 
 //Get all products from the database
 export const getAllProductsDB = async () => {
-  const result = await ProductModel.find().notDeleted();
+  const result = await ProductModel.find()
+    .notDeleted()
+    .select("-isDeleted -__v");
   // const query = ProductModel.find().notDeleted();
   // console.log(query.getQuery());
   return result;
