@@ -42,9 +42,23 @@ export const updateAProductDB = async (
     { _id: productId, isDeleted: false },
     { $set: updatedContent },
     { runValidators: true, new: true }
-  );
+  ).select("-isDeleted -__v");
 
   if (!result) throw new NotFoundError("Resource not found");
 
   return result;
+};
+
+//Delete a single product from the database
+export const deleteAProductDB = async (productId: string) => {
+  const deleteObj = { isDeleted: true };
+  const result = await ProductModel.findOneAndUpdate(
+    { _id: productId, isDeleted: false },
+    { $set: deleteObj },
+    { runValidators: true, new: true }
+  ).select("-isDeleted -__v");
+
+  if (!result) throw new NotFoundError("Resource not found");
+
+  return {};
 };

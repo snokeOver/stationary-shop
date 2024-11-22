@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {
   createProductDB,
+  deleteAProductDB,
   getAllProductsDB,
   getAProductDB,
   updateAProductDB,
@@ -36,7 +37,7 @@ export const getAllProducts = async (
     const result = await getAllProductsDB();
     res.status(200).send({
       message: "Products retrieved successfully",
-      success: true,
+      status: true,
       data: result,
     });
   } catch (error) {
@@ -44,7 +45,7 @@ export const getAllProducts = async (
   }
 };
 
-// Control request and response to Get a single Product
+// Control request and response to Get a single Product by it's ID
 export const getAProduct = async (
   req: Request,
   res: Response,
@@ -55,8 +56,8 @@ export const getAProduct = async (
     const result = await getAProductDB(productId);
     res.status(200).send({
       message: "Product retrieved successfully",
-      success: true,
-      data: result,
+      status: true,
+      data: result[0],
     });
   } catch (error) {
     next(error);
@@ -77,7 +78,28 @@ export const updateAProduct = async (
 
     res.status(200).send({
       message: "Product Updated successfully",
-      success: true,
+      status: true,
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Control request and response to delete a single Product
+export const deleteAProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId } = req.params;
+
+    const result = await deleteAProductDB(productId);
+
+    res.status(200).send({
+      message: "Product deleted successfully",
+      status: true,
       data: result,
     });
   } catch (error) {
