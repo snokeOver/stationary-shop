@@ -9,7 +9,7 @@ const errorHandler = (error, req, res, next) => {
     //Check for specific error
     if (error.name === "NotFoundError") {
         errMsg = error.message;
-        statusCode = 400;
+        statusCode = 404;
     }
     else if (error.name === "StrictModeError") {
         const msg = error.message;

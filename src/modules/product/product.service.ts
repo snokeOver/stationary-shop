@@ -12,11 +12,21 @@ export const createProductDB = async (product: IProduct) => {
 };
 
 //Get all products from the database
-export const getAllProductsDB = async () => {
-  const result = await ProductModel.find()
+export const getAllProductsDB = async (searchTerm: string) => {
+  let searchQuery: Record<string, unknown> = {};
+
+  searchQuery = {
+    $or: [
+      { category: { $regex: searchTerm, $options: "i" } },
+      { name: { $regex: searchTerm, $options: "i" } },
+      { brand: { $regex: searchTerm, $options: "i" } },
+    ],
+  };
+
+  const result = await ProductModel.find(searchQuery)
     .notDeleted()
     .select("-isDeleted -__v");
-  // const query = ProductModel.find().notDeleted();
+
   // console.log(query.getQuery());
   if (result.length < 1) throw new NotFoundError("Resource not found");
   return result;

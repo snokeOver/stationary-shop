@@ -34,4 +34,5 @@ app.listen(server_port, () => [
 ]);
 //Global error handler
 app.use(errorhandler_1.errorHandler);
+//Export app for vercel
 exports.default = app;

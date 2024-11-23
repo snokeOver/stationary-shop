@@ -30,7 +30,8 @@ exports.createAProduct = createAProduct;
 // Control request and response to Get all Products
 const getAllProducts = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield (0, product_service_1.getAllProductsDB)();
+        const { searchTerm } = req.query;
+        const result = yield (0, product_service_1.getAllProductsDB)(searchTerm);
         res.status(200).send({
             message: "Products retrieved successfully",
             status: true,

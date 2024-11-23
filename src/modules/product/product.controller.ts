@@ -34,7 +34,9 @@ export const getAllProducts = async (
   next: NextFunction
 ) => {
   try {
-    const result = await getAllProductsDB();
+    const { searchTerm } = req.query;
+    const result = await getAllProductsDB(searchTerm as string);
+
     res.status(200).send({
       message: "Products retrieved successfully",
       status: true,

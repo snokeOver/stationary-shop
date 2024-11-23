@@ -14,7 +14,7 @@ export const errorHandler: ErrorRequestHandler = (
   //Check for specific error
   if (error.name === "NotFoundError") {
     errMsg = error.message;
-    statusCode = 400;
+    statusCode = 404;
   } else if (error.name === "StrictModeError") {
     const msg = error.message;
     errMsg = "Additional field not allowed";
