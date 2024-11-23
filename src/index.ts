@@ -36,3 +36,6 @@ app.listen(server_port, () => [
 
 //Global error handler
 app.use(errorHandler);
+
+//Export app for vercel
+export default app;

@@ -1,7 +1,12 @@
-import { ErrorRequestHandler } from "express";
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { Error as Merr } from "mongoose";
 
-export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
+export const errorHandler: ErrorRequestHandler = (
+  error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   let errMsg = "Server error";
   let statusCode = 500;
   let errorDetails = error.errors;
@@ -40,6 +45,7 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   };
 
   res.status(statusCode).send(response);
+  void next;
 };
 
 export class NotFoundError extends Error {
