@@ -34,14 +34,15 @@ const createProductDB = (product) => __awaiter(void 0, void 0, void 0, function*
 exports.createProductDB = createProductDB;
 //Get all products from the database
 const getAllProductsDB = (searchTerm) => __awaiter(void 0, void 0, void 0, function* () {
-    let searchQuery = {};
-    searchQuery = {
-        $or: [
-            { category: { $regex: searchTerm, $options: "i" } },
-            { name: { $regex: searchTerm, $options: "i" } },
-            { brand: { $regex: searchTerm, $options: "i" } },
-        ],
-    };
+    const searchQuery = searchTerm
+        ? {
+            $or: [
+                { category: { $regex: searchTerm, $options: "i" } },
+                { name: { $regex: searchTerm, $options: "i" } },
+                { brand: { $regex: searchTerm, $options: "i" } },
+            ],
+        }
+        : {};
     const result = yield product_model_1.ProductModel.find(searchQuery)
         .notDeleted()
         .select("-isDeleted -__v");

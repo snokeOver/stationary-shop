@@ -13,15 +13,15 @@ export const createProductDB = async (product: IProduct) => {
 
 //Get all products from the database
 export const getAllProductsDB = async (searchTerm: string) => {
-  let searchQuery: Record<string, unknown> = {};
-
-  searchQuery = {
-    $or: [
-      { category: { $regex: searchTerm, $options: "i" } },
-      { name: { $regex: searchTerm, $options: "i" } },
-      { brand: { $regex: searchTerm, $options: "i" } },
-    ],
-  };
+  const searchQuery: Record<string, unknown> = searchTerm
+    ? {
+        $or: [
+          { category: { $regex: searchTerm, $options: "i" } },
+          { name: { $regex: searchTerm, $options: "i" } },
+          { brand: { $regex: searchTerm, $options: "i" } },
+        ],
+      }
+    : {};
 
   const result = await ProductModel.find(searchQuery)
     .notDeleted()
