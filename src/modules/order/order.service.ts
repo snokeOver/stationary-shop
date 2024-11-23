@@ -9,3 +9,39 @@ export const createAOrderDB = async (order: IOrder) => {
 
   return restResult;
 };
+
+//Calculate total revenue from the total orders
+export const calculateRevenueDB = async () => {
+  const result = await OrderModel.aggregate([
+    {
+      $lookup: {
+        from: "products",
+        localField: "product",
+        foreignField: "_id",
+        as: "productDetails",
+      },
+    },
+    {
+      $unwind: "$productDetails",
+    },
+    {
+      $project: {
+        totalPrice: { $multiply: ["$quantity", "$productDetails.price"] },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalRevenue: { $sum: "$totalPrice" },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        totalRevenue: 1,
+      },
+    },
+  ]);
+
+  return result;
+};

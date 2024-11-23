@@ -68,8 +68,6 @@ orderSchema.pre("save", async function () {
   //Validate order quantity: When the order quantity is greater than the existing quantity
   if (this.quantity > stockQuantity)
     throw new Error(`Insufficient stock for ${name}`);
-
-  //   console.log(existingProduct);
 });
 
 //post-hook to update the quantity of the product
@@ -87,7 +85,7 @@ orderSchema.post("save", async function () {
     inStock: existingProduct.quantity > this.quantity,
   };
 
-  const result = await ProductModel.findByIdAndUpdate(
+  await ProductModel.findByIdAndUpdate(
     this.product,
     {
       $set: updatedFild,
@@ -96,8 +94,6 @@ orderSchema.post("save", async function () {
       new: true,
     }
   );
-
-  console.log(result);
 });
 
 export const OrderModel = model<IOrder>("orders", orderSchema);
