@@ -2,8 +2,6 @@
 
 This project is a TypeScript-based Express application designed to manage a Stationery Shop's inventory and orders. It integrates MongoDB using Mongoose for database operations and ensures data integrity through schema validation.
 
----
-
 ## 🚀 Features
 
 1. **Stationery Product Management**:
@@ -30,8 +28,6 @@ This project is a TypeScript-based Express application designed to manage a Stat
    - Consistent and RESTful API endpoints.
    - Comprehensive response formats for success and failure.
 
----
-
 ## 🛠️ Technologies Used
 
 - **Backend Framework**: Express.js
@@ -40,34 +36,9 @@ This project is a TypeScript-based Express application designed to manage a Stat
 - **ORM**: Mongoose
 - **Validation**: Mongoose Schema Validation
 
----
-
 ## 📂 Project Structure
 
-📁 stationery-shop
-├── 📂 src
-│ ├── 📄 errorHandler.ts # Centralized error handling
-│ ├── 📄 index.ts # Entry point for application setup
-│ ├── 📄 server.ts # Application server initialization
-│ ├── 📂 modules # Feature-specific modules
-│ │ ├── 📂 order # Order module
-│ │ │ ├── 📄 order.interface.ts # TypeScript interfaces for order
-│ │ │ ├── 📄 order.model.ts # Mongoose schema for order
-│ │ │ ├── 📄 order.route.ts # API routes for order
-│ │ │ ├── 📄 order.controller.ts # Controller logic for order
-│ │ │ └── 📄 order.service.ts # Business logic for order
-│ │ ├── 📂 product # Product module
-│ │ │ ├── 📄 product.interface.ts # TypeScript interfaces for product
-│ │ │ ├── 📄 product.model.ts # Mongoose schema for product
-│ │ │ ├── 📄 product.route.ts # API routes for product
-│ │ │ ├── 📄 product.controller.ts # Controller logic for product
-│ │ │ └── 📄 product.service.ts # Business logic for product
-├── 📄 .env # Environment variables
-├── 📄 package.json # Node.js dependencies and scripts
-├── 📄 tsconfig.json # TypeScript configuration
-└── 📄 README.md # Documentation
-
----
+![Folder Structure](/assets/structure.PNG)
 
 ## 🧩 Models Overview
 
@@ -92,8 +63,6 @@ This project is a TypeScript-based Express application designed to manage a Stat
 | `quantity`   | `number`   | Quantity of the product ordered.           |
 | `totalPrice` | `number`   | Total price of the order.                  |
 
----
-
 ## 📋 API Endpoints
 
 ### **Stationery Products**
@@ -113,8 +82,6 @@ This project is a TypeScript-based Express application designed to manage a Stat
 | POST   | `/api/orders`         | Place a new order.                   |
 | GET    | `/api/orders/revenue` | Calculate total revenue from orders. |
 
----
-
 ## 🛡️ Error Handling
 
 - **Validation Errors**: Detailed messages for invalid inputs.
@@ -132,15 +99,11 @@ Example Error Response:
 }
 ```
 
----
-
 ## 🛑 Prerequisites
 
 - Node.js (v16+)
 - MongoDB (Atlas or Local)
 - npm (or yarn)
-
----
 
 ## 🔧 Setup
 
@@ -164,26 +127,18 @@ Example Error Response:
 
 5. Test the API using tools like `Postman` or `cURL`.
 
----
-
 ## 🖥️ Deployment
 
 - Deployed Link: [Live Demo](https://stationary-shop-snoke.vercel.app/)
 - GitHub Repository: [Stationery Shop](https://github.com/snokeOver/stationary-shop)
 
----
-
 ## 🎥 Video Walkthrough
 
 Watch the API walkthrough: [Video Explanation](https://your-video-link.com)
 
----
-
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! Feel free to check the **Issues** page or submit a pull request.
-
----
 
 ## 👨‍💻 Author
 
