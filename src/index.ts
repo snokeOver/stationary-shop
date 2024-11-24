@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectToDB } from "./server";
 import productRouter from "./modules/product/product.route";
-import { errorHandler } from "./errorhandler";
+
 import orderRoute from "./modules/order/order.route";
+import { errorHandler } from "./errorHandler";
 
 //Initialize dotenv variables access
 dotenv.config();

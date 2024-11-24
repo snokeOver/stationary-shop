@@ -9,8 +9,8 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const server_1 = require("./server");
 const product_route_1 = __importDefault(require("./modules/product/product.route"));
-const errorhandler_1 = require("./errorhandler");
 const order_route_1 = __importDefault(require("./modules/order/order.route"));
+const errorHandler_1 = require("./errorHandler");
 //Initialize dotenv variables access
 dotenv_1.default.config();
 const server_port = process.env.SERVER_PORT;
@@ -33,6 +33,6 @@ app.listen(server_port, () => [
     console.log(`Stationary shop is listening on port ${server_port}`),
 ]);
 //Global error handler
-app.use(errorhandler_1.errorHandler);
+app.use(errorHandler_1.errorHandler);
 //Export app for vercel
 exports.default = app;

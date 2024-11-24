@@ -39,6 +39,7 @@ const errorHandler = (error, req, res, next) => {
             errors: errorDetails,
         },
         stack: error.stack,
+        // stack: node_env === "development" ? error.stack : null,
     };
     res.status(statusCode).send(response);
     void next;

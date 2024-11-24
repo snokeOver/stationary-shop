@@ -42,6 +42,7 @@ export const errorHandler: ErrorRequestHandler = (
     },
 
     stack: error.stack,
+    // stack: node_env === "development" ? error.stack : null,
   };
 
   res.status(statusCode).send(response);

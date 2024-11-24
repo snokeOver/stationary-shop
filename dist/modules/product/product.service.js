@@ -21,7 +21,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAProductDB = exports.updateAProductDB = exports.getAProductDB = exports.getAllProductsDB = exports.createProductDB = void 0;
-const errorhandler_1 = require("../../errorhandler");
+const errorHandler_1 = require("../../errorHandler");
 const product_model_1 = require("./product.model");
 //Create a product data in the MongoDB
 const createProductDB = (product) => __awaiter(void 0, void 0, void 0, function* () {
@@ -48,7 +48,7 @@ const getAllProductsDB = (searchTerm) => __awaiter(void 0, void 0, void 0, funct
         .select("-isDeleted -__v");
     // console.log(query.getQuery());
     if (result.length < 1)
-        throw new errorhandler_1.NotFoundError("Resource not found");
+        throw new errorHandler_1.NotFoundError("Resource not found");
     return result;
 });
 exports.getAllProductsDB = getAllProductsDB;
@@ -58,7 +58,7 @@ const getAProductDB = (productId) => __awaiter(void 0, void 0, void 0, function*
         .notDeleted()
         .select("-isDeleted -__v");
     if (result.length < 1)
-        throw new errorhandler_1.NotFoundError("Resource not found");
+        throw new errorHandler_1.NotFoundError("Resource not found");
     return result;
 });
 exports.getAProductDB = getAProductDB;
@@ -66,7 +66,7 @@ exports.getAProductDB = getAProductDB;
 const updateAProductDB = (productId, updatedContent) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.ProductModel.findOneAndUpdate({ _id: productId, isDeleted: false }, { $set: updatedContent }, { runValidators: true, new: true }).select("-isDeleted -__v");
     if (!result)
-        throw new errorhandler_1.NotFoundError("Resource not found");
+        throw new errorHandler_1.NotFoundError("Resource not found");
     return result;
 });
 exports.updateAProductDB = updateAProductDB;
@@ -75,7 +75,7 @@ const deleteAProductDB = (productId) => __awaiter(void 0, void 0, void 0, functi
     const deleteObj = { isDeleted: true };
     const result = yield product_model_1.ProductModel.findOneAndUpdate({ _id: productId, isDeleted: false }, { $set: deleteObj }, { runValidators: true, new: true }).select("-isDeleted -__v");
     if (!result)
-        throw new errorhandler_1.NotFoundError("Resource not found");
+        throw new errorHandler_1.NotFoundError("Resource not found");
     return {};
 });
 exports.deleteAProductDB = deleteAProductDB;

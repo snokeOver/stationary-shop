@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../errorhandler";
+import { NotFoundError } from "../../errorHandler";
 import { IProduct } from "./product.interface";
 import { ProductModel } from "./product.model";
 
