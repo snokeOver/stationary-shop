@@ -46,7 +46,7 @@ This project is a TypeScript-based Express application designed to manage a Stat
 
 📁 stationery-shop
 ├── 📂 src
-│ ├── 📄 errorHandler.ts # Centralized error handling logic
+│ ├── 📄 errorHandler.ts # Centralized error handling
 │ ├── 📄 index.ts # Entry point for application setup
 │ ├── 📄 server.ts # Application server initialization
 │ ├── 📂 modules # Feature-specific modules
