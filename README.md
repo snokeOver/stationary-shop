@@ -109,7 +109,9 @@ Example Error Response:
 
 1. Clone the repository:
 
-   `git clone https://github.com/username/stationery-shop-api.git cd stationery-shop-api`
+   `git clone https://github.com/snokeOver/stationary-shop.git`
+
+   `cd stationary-shop`
 
 2. Install dependencies:
 
@@ -119,7 +121,11 @@ Example Error Response:
 
    Create a `.env` file with the following values:
 
-   `PORT=5000 MONGO_URI=your_mongodb_connection_string`
+   `SERVER_PORT=5000`
+
+   `MONGODB_URL=your_mongodb_connection_string`
+
+   `NODE_ENV=development`
 
 4. Start the application:
 
@@ -143,7 +149,8 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 👨‍💻 Author
 
 **Shubhankar Halder**
-MERN, TypeScript, Next.js, Node.js, MongoDB | Crafting user-friendly, secure, scalable Web Apps | Passionate about Software Engineering
+
+###### MERN, TypeScript, Next.js, Node.js, MongoDB | Crafting user-friendly, secure, scalable Web Apps | Passionate about Software Engineering
 
 - GitHub: [@snokeOver](https://github.com/snokeOver)
 - LinkedIn: [Shubhankar Halder](https://www.linkedin.com/in/shubhankar-halder/)

@@ -7,20 +7,12 @@ const productSchema = new mongoose_1.Schema({
         type: String,
         required: [true, "Product name is required"],
         trim: true,
-        validate: {
-            validator: (value) => /^[A-Z][a-zA-Z\s]*$/.test(value),
-            message: "Product name must start with an uppercase letter and contain only alphabetic characters",
-        },
         unique: true,
     },
     brand: {
         type: String,
         required: [true, "Brand name is required"],
         trim: true,
-        validate: {
-            validator: (value) => value.charAt(0) === value.charAt(0).toUpperCase(),
-            message: "The Brand name must start with an uppercase letter",
-        },
     },
     price: {
         type: Number,
@@ -45,7 +37,6 @@ const productSchema = new mongoose_1.Schema({
         type: String,
         required: [true, "Description is required"],
         trim: true,
-        maxlength: [500, "Description cannot exceed 500 characters"],
     },
     quantity: {
         type: Number,
@@ -64,7 +55,7 @@ const productSchema = new mongoose_1.Schema({
 // Adds `createdAt` and `updatedAt` fields automatically
 {
     timestamps: true,
-    strict: "throw", // prevents extra fields and throw error
+    // strict: "throw", // prevents extra fields and throw error
 });
 //Custom querry to get only the non-deleted product
 productSchema.query.notDeleted = function byName() {

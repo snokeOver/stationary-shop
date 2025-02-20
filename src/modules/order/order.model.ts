@@ -45,7 +45,7 @@ const orderSchema = new Schema<IOrder>(
 
   {
     timestamps: true,
-    strict: "throw", // prevents extra fields and throw error
+    // strict: "throw", // prevents extra fields and throw error
   }
 );
 

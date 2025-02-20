@@ -71,7 +71,7 @@ const orderSchema = new mongoose_1.Schema({
     },
 }, {
     timestamps: true,
-    strict: "throw", // prevents extra fields and throw error
+    // strict: "throw", // prevents extra fields and throw error
 });
 //Pre-hook to validate some aspects before creating a order
 orderSchema.pre("save", function () {

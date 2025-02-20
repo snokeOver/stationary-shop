@@ -25,11 +25,6 @@ const productSchema = new Schema<
       type: String,
       required: [true, "Product name is required"],
       trim: true,
-      validate: {
-        validator: (value) => /^[A-Z][a-zA-Z\s]*$/.test(value),
-        message:
-          "Product name must start with an uppercase letter and contain only alphabetic characters",
-      },
       unique: true,
     },
 
@@ -37,10 +32,6 @@ const productSchema = new Schema<
       type: String,
       required: [true, "Brand name is required"],
       trim: true,
-      validate: {
-        validator: (value) => value.charAt(0) === value.charAt(0).toUpperCase(),
-        message: "The Brand name must start with an uppercase letter",
-      },
     },
 
     price: {
@@ -68,7 +59,6 @@ const productSchema = new Schema<
       type: String,
       required: [true, "Description is required"],
       trim: true,
-      maxlength: [500, "Description cannot exceed 500 characters"],
     },
 
     quantity: {
@@ -91,7 +81,7 @@ const productSchema = new Schema<
   // Adds `createdAt` and `updatedAt` fields automatically
   {
     timestamps: true,
-    strict: "throw", // prevents extra fields and throw error
+    // strict: "throw", // prevents extra fields and throw error
   }
 );
 
